@@ -98,12 +98,6 @@
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
     }
-    #countdown {
-      font-family: 'Cookie', cursive;
-      font-size: 1.5em;
-      margin-top: 1rem;
-      color: #fff8dc;
-    }
     @media (max-width: 600px) {
       .flipbook-page { font-size: 1.5em; }
       header { font-size: 2.5em; }
@@ -115,15 +109,14 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
 </audio>
 <header>Happy Birthday My Mohtaram 🎂💖</header>
-<div id="countdown"></div>
 <section id="messageSection">
-  <div class="flipbook-page active">My dearest Mohtaram, you’re my peace and chaos, all in one.</div>
-  <div class="flipbook-page">You’ve touched my heart in ways I never knew were possible.</div>
-  <div class="flipbook-page">I don’t need a perfect life, I just need you in it.</div>
-  <div class="flipbook-page">Every heartbeat whispers: Mohtaram, Mohtaram, Mohtaram...</div>
-  <div class="flipbook-page">Your happiness means the world to me.</div>
-  <div class="flipbook-page">I promise to keep making you smile — forever.</div>
-  <div class="flipbook-page">You are, and will always be, my most beautiful chapter. 💞</div>
+  <div class="flipbook-page active" style="color: #bb377d; background: #fff9f9;">My dearest Mohtaram, you’re my peace and chaos, all in one.</div>
+  <div class="flipbook-page" style="color: #6a0572; background: #fce4ec;">You’ve touched my heart in ways I never knew were possible.</div>
+  <div class="flipbook-page" style="color: #004d40; background: #e0f7fa;">I don’t need a perfect life, I just need you in it.</div>
+  <div class="flipbook-page" style="color: #bf360c; background: #ffe0b2;">Every heartbeat whispers: Mohtaram, Mohtaram, Mohtaram...</div>
+  <div class="flipbook-page" style="color: #1a237e; background: #c5cae9;">Your happiness means the world to me.</div>
+  <div class="flipbook-page" style="color: #33691e; background: #dcedc8;">I promise to keep making you smile — forever.</div>
+  <div class="flipbook-page" style="color: #880e4f; background: #f8bbd0;">You are, and will always be, my most beautiful chapter. 💞</div>
   <button id="nextBtn" onclick="nextMessage()">➤ Click for next Message Mohtaram</button>
 </section>
 <section id="surpriseSection" class="final-section">
@@ -136,6 +129,17 @@
   const nextBtn = document.getElementById('nextBtn');
   const surprise = document.getElementById('surpriseSection');
   const messageSection = document.getElementById('messageSection');
+
+  const messageStyles = [
+    { color: '#bb377d', background: '#fff9f9' },
+    { color: '#6a0572', background: '#fce4ec' },
+    { color: '#004d40', background: '#e0f7fa' },
+    { color: '#bf360c', background: '#ffe0b2' },
+    { color: '#1a237e', background: '#c5cae9' },
+    { color: '#33691e', background: '#dcedc8' },
+    { color: '#880e4f', background: '#f8bbd0' }
+  ];
+
   function showMiniHearts() {
     for (let i = 0; i < 20; i++) {
       const heart = document.createElement('div');
@@ -148,6 +152,7 @@
       setTimeout(() => heart.remove(), 5000);
     }
   }
+
   function nextMessage() {
     messages[currentMsg].classList.remove('active');
     showMiniHearts();
@@ -155,6 +160,9 @@
       currentMsg++;
       if (currentMsg < messages.length) {
         messages[currentMsg].classList.add('active');
+        const style = messageStyles[currentMsg];
+        messages[currentMsg].style.color = style.color;
+        messages[currentMsg].style.background = style.background;
       } else {
         messageSection.style.display = 'none';
         surprise.style.display = 'block';
@@ -162,24 +170,10 @@
       }
     }, 1000);
   }
+
   function fireWall() {
     setInterval(showMiniHearts, 300);
   }
-  function updateCountdown() {
-    const now = new Date();
-    const end = new Date();
-    end.setHours(23, 59, 59, 999);
-    const diff = end - now;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    document.getElementById("countdown").textContent = 
-      `🎈 Birthday ends in: ${hours}h ${minutes}m ${seconds}s 🎈`;
-    if (diff > 0) {
-      setTimeout(updateCountdown, 1000);
-    }
-  }
-  updateCountdown();
   setInterval(showMiniHearts, 2000);
 </script>
 </body>
